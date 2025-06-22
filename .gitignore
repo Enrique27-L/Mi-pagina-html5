@@ -1,0 +1,11 @@
+# Ignorar todo menos tu proyecto
+/AppData/
+/Documents/
+/Cookies/
+/Mis documentos/
+/Configuración local/
+/Plantillas/
+/.vscode/
+*.log
+*.tmp
+
