@@ -1,57 +1,4 @@
-//validaciones del lado del cliente (Frontend/JavaScript)
-<input type="email" required></input>
-
-if (CSSMathProduct.value===""){
-    alert("El campo no puede estar vacío");
-}
-//Validar un correo en un servidor (PHP):
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { echo
-"Correo no válido"; }
-document.getElementById('miFormulario').addEventLis
-tener('submit', function(event) {
- event.preventDefault(); // Evita el envío
-});
-//const campo = document.getElementById('nombre');
-const mensajeError = document.getElementById('mensajeError');
-campo.addEventListener('input', () => {
-  if (campo.value.length < 3) {
-    mensajeError.textContent = 'El nombre es demasiado corto';
-  } else {
-    mensajeError.textContent = ''; // Limpiar el mensaje si la validación es exitosa
-  }
-});
-const correoInput = document.getElementById('correo');
-correoInput.addEventListener('input', () => {
- const correo = correoInput.value;
- const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
- if (!regex.test(correo)) {
- mensajeError.textContent = 'Correo inválido';
- } else {
- mensajeError.textContent = ''; // Limpiar mensaje de error si el correo es válido
- }
-});
-const campo = document.getElementById('nombre');constmensajeError =
-document.getElementById('mensajeError');campo.addEventListener('input', () => { if (campo.value.length < 3) {
-mensajeError.textContent = 'El nombre es demasiado corto'; } else {
-mensajeError.textContent = ''; // Limpiar el mensaje si la validación es
-exitosa }});
-const contraseñaInput = document.getElementById('contraseña');
-const mensajeErro = document.getElementById('mensajeError');
-contraseñaInput.addEventListener('input', () => {
- const contraseña = contraseñaInput.value;
- // Verificar longitud mínima de 8 caracteres
-if (contraseña.length < 8) {
- mensajeError.textContent = 'La contraseña debe tener al menos 8 caracteres';
-}
- // Verificar si contiene caracteres especiales
-else if (!/[!@#$%^&*(),.?":{}|<>]/.test(contraseña)) {
- mensajeError.textContent = 'La contraseña debe incluir al menos un carácter especial';
-}
- else {
- mensajeError.textContent = '';// Limpiar mensaje de error si la contraseña es válida
-}
-});
+// --- VALIDACIÓN DEL FORMULARIO ---
 
 // Reglas de validación para cada campo
 const reglas = {
@@ -67,34 +14,111 @@ const reglas = {
 const form = document.getElementById('miFormulario');
 const enviar = document.getElementById('enviar');
 
-// Validación dinámica y mensajes
-form.addEventListener('input', () => {
-  let valido = true;
-  for (let campo in reglas) {
-    const input = document.getElementById(campo);
-    const error = document.getElementById('error' + campo.charAt(0).toUpperCase() + campo.slice(1));
-    const resultado = reglas[campo](input.value);
-    if (resultado !== true) {
-      error.textContent = resultado;
-      input.classList.add('input-error');
-      input.classList.remove('input-ok');
-      valido = false;
-    } else {
-      error.textContent = '';
-      input.classList.remove('input-error');
-      input.classList.add('input-ok');
+if (form && enviar) {
+  // Validación dinámica y mensajes
+  form.addEventListener('input', () => {
+    let valido = true;
+    for (let campo in reglas) {
+      const input = document.getElementById(campo);
+      const error = document.getElementById('error' + campo.charAt(0).toUpperCase() + campo.slice(1));
+      const resultado = reglas[campo](input.value);
+      if (resultado !== true) {
+        error.textContent = resultado;
+        input.classList.add('input-error');
+        input.classList.remove('input-ok');
+        valido = false;
+      } else {
+        error.textContent = '';
+        input.classList.remove('input-error');
+        input.classList.add('input-ok');
+      }
     }
-  }
-  enviar.disabled = !valido;
-});
+    enviar.disabled = !valido;
+  });
 
-// Mensaje de éxito al enviar
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  alert('¡Formulario enviado correctamente!');
-  form.reset();
-  document.querySelectorAll('.error').forEach(e => e.textContent = '');
-  document.querySelectorAll('input').forEach(i => i.classList.remove('input-ok', 'input-error'));
-  enviar.disabled = true;
-});
+  // Mensaje de éxito al enviar
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('¡Formulario enviado correctamente!');
+    form.reset();
+    document.querySelectorAll('.error').forEach(e => e.textContent = '');
+    document.querySelectorAll('input').forEach(i => i.classList.remove('input-ok', 'input-error'));
+    enviar.disabled = true;
+  });
+}
 
+// --- GALERÍA DE IMÁGENES ---
+
+const galeria = document.getElementById('galeria');
+const addBtn = document.getElementById('addBtn');
+const delBtn = document.getElementById('delBtn');
+const imgUrl = document.getElementById('imgUrl');
+const ejemploBtns = document.querySelectorAll('.ejemplo');
+
+// Crea un contenedor para la imagen y el precio
+function crearImagen(src, precio = "$2") {
+  const contenedor = document.createElement('div');
+  contenedor.classList.add('img-contenedor');
+
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = "Imagen de galería";
+  img.addEventListener('click', () => seleccionarImagen(img));
+  img.classList.add('imagen-galeria');
+
+  const precioTag = document.createElement('div');
+  precioTag.className = "precio";
+  precioTag.textContent = precio;
+
+  contenedor.appendChild(img);
+  contenedor.appendChild(precioTag);
+  return contenedor;
+}
+
+// Selecciona una imagen al hacer clic
+function seleccionarImagen(img) {
+  document.querySelectorAll('.galeria img').forEach(im => im.classList.remove('seleccionada'));
+  img.classList.add('seleccionada');
+}
+
+// Agrega una nueva imagen a la galería desde URL
+if (addBtn && imgUrl && galeria) {
+  addBtn.addEventListener('click', () => {
+    if (imgUrl.value.trim() !== '') {
+      const precio = prompt("¿Cuál es el precio de la imagen?", "$2") || "$2";
+      const contenedor = crearImagen(imgUrl.value.trim(), precio);
+      galeria.appendChild(contenedor);
+      imgUrl.value = '';
+    }
+  });
+
+  // Permite agregar imagen con Enter
+  imgUrl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      addBtn.click();
+    }
+  });
+}
+
+// Elimina la imagen seleccionada
+if (delBtn && galeria) {
+  delBtn.addEventListener('click', () => {
+    const seleccionada = document.querySelector('.galeria img.seleccionada');
+    if (seleccionada) {
+      seleccionada.classList.remove('seleccionada');
+      seleccionada.style.animation = 'seleccion 0.3s reverse';
+      setTimeout(() => seleccionada.parentElement.remove(), 200);
+    }
+  });
+}
+
+// Agrega imágenes locales con precio desde los botones de ejemplo
+if (ejemploBtns && galeria) {
+  ejemploBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const precio = btn.dataset.precio || "$2";
+      const contenedor = crearImagen(btn.dataset.src, precio);
+      galeria.appendChild(contenedor);
+    });
+  });
+}

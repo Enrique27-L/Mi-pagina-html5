@@ -1,100 +1,52 @@
+<!--HTML provee la estructura y los IDs/clases.-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galería Interactiva</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="F.css">
 </head>
 <body>
   <h1>Galería de Imágenes</h1>
   <div class="controls">
-    <!-- Campo de entrada para URL de imagen -->
     <input type="url" id="imgUrl" placeholder="Pega la URL de la imagen o usa un ejemplo">
     <button id="addBtn">Agregar Imagen</button>
     <button id="delBtn">Eliminar Imagen Seleccionada</button>
-    <!-- Imágenes locales con precio -->
-    <button class="ejemplo" data-src="assets/Amarilla.jpg" data-precio="$1">Amarilla $1</button>
-    <button class="ejemplo" data-src="assets/Imag.jpg" data-precio="$2">Imag $2</button>
-    <button class="ejemplo" data-src="assets/Imagen.jpg" data-precio="$1.50">Imagen $1.50</button>
-    <button class="ejemplo" data-src="assets/Zapote.jpg" data-precio="$0.50">Zapote $0.50</button>
+    <button class="ejemplo" data-src="assets/P.Fresco.jpg" data-precio="$1">Yuca Blanca $1</button>
+    <button class="ejemplo" data-src="assets/P.Yuca.jpg" data-precio="$2">Plantas de Yuca $2</button>
+    <button class="ejemplo" data-src="assets/Y.Amarilla.jpg" data-precio="$1.50">Yuca Amarilla $1.50</button>
+    <button class="ejemplo" data-src="assets/Zapote.jpg" data-precio="$0.50"><strong>Muestra de la calidad</strong> $0.50</button>
+    <button class="ejemplo" data-src="assets/Guanabana.jpg" data-precio="$3">Por cultivar $3</button>
+    <button class="ejemplo" data-src="assets/Yuca.jpg" data-precio="$2.50">Yuca $2.50</button>
   </div>
-  <!-- Contenedor para la galería de imágenes -->
   <div id="galeria" class="galeria"></div>
-  <!-- Enlace al script JavaScript -->
-  <script src="script.js"></script>
 
-  <!-- Archivo principal del formulario -->
-<form id="miFormulario">
-  <label>Nombre:
-    <input type="text" id="nombre" required>
-    <span id="errorNombre" class="error"></span>
-  </label><br>
-  <label>Correo:
-    <input type="email" id="correo" required>
-    <span id="errorCorreo" class="error"></span>
-  </label><br>
-  <label>Contraseña:
-    <input type="password" id="contraseña" required>
-    <span id="errorContraseña" class="error"></span>
-  </label><br>
-  <label>Confirmar contraseña:
-    <input type="password" id="confirmar" required>
-    <span id="errorConfirmar" class="error"></span>
-  </label><br>
-  <label>Edad:
-    <input type="number" id="edad" required>
-    <span id="errorEdad" class="error"></span>
-  </label><br>
-  <button type="submit" id="enviar" disabled>Enviar</button>
-  <button type="reset">Limpiar</button>
-</form>
-
-<script>
-// Reglas de validación para cada campo
-const reglas = {
-  nombre: v => v.trim().length >= 3 || "Mínimo 3 caracteres", // Nombre: mínimo 3 caracteres
-  correo: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || "Correo inválido", // Correo: formato válido
-  contraseña: v => v.length >= 8 && /\d/.test(v) && /[!@#$%^&*(),.?":{}|<>]/.test(v) 
-    || "Mínimo 8 caracteres, un número y un carácter especial", // Contraseña: mínimo 8, un número y un especial
-  confirmar: v => v === document.getElementById('contraseña').value && v !== "" 
-    || "Las contraseñas no coinciden", // Confirmar: igual a contraseña y no vacío
-  edad: v => Number(v) >= 18 && Number(v) <= 65 || "Edad entre 18 y 65" // Edad: entre 18 y 65
-};
-
-const form = document.getElementById('miFormulario'); // Selecciona el formulario
-const enviar = document.getElementById('enviar');     // Selecciona el botón enviar
-
-// Validación dinámica y mensajes
-form.addEventListener('input', () => { // Cada vez que se escribe en un campo...
-  let valido = true; // Variable para saber si todo es válido
-  for (let campo in reglas) { // Recorre cada campo y su regla
-    const input = document.getElementById(campo); // Obtiene el input por id
-    const error = document.getElementById('error' + campo.charAt(0).toUpperCase() + campo.slice(1)); // Obtiene el span de error
-    const resultado = reglas[campo](input.value); // Aplica la regla de validación
-    if (resultado !== true) { // Si hay error...
-      error.textContent = resultado; // Muestra el mensaje de error
-      input.classList.add('input-error'); // Marca el campo como error (rojo)
-      input.classList.remove('input-ok');
-      valido = false; // El formulario no es válido
-    } else { // Si es válido...
-      error.textContent = ''; // Limpia el mensaje de error
-      input.classList.remove('input-error');
-      input.classList.add('input-ok'); // Marca el campo como válido (verde)
-    }
-  }
-  enviar.disabled = !valido; // Habilita o deshabilita el botón enviar
-});
-
-// Mensaje de éxito al enviar
-form.addEventListener('submit', e => {
-  e.preventDefault(); // Evita que se envíe el formulario por defecto
-  alert('¡Formulario enviado correctamente!'); // Muestra mensaje de éxito
-  form.reset(); // Limpia el formulario
-  document.querySelectorAll('.error').forEach(e => e.textContent = ''); // Limpia mensajes de error
-  document.querySelectorAll('input').forEach(i => i.classList.remove('input-ok', 'input-error')); // Limpia estilos
-  enviar.disabled = true; // Deshabilita el botón enviar
-});
-</script>
+  <h2>Formulario de Registro</h2>
+  <form id="miFormulario">
+    <label>Nombre:
+      <input type="text" id="nombre" required>
+      <span id="errorNombre" class="error"></span>
+    </label><br>
+    <label>Correo:
+      <input type="email" id="correo" required>
+      <span id="errorCorreo" class="error"></span>
+    </label><br>
+    <label>Contraseña:
+      <input type="password" id="contraseña" required>
+      <span id="errorContraseña" class="error"></span>
+    </label><br>
+    <label>Confirmar contraseña:
+      <input type="password" id="confirmar" required>
+      <span id="errorConfirmar" class="error"></span>
+    </label><br>
+    <label>Edad:
+      <input type="number" id="edad" required>
+      <span id="errorEdad" class="error"></span>
+    </label><br>
+    <button type="submit" id="enviar" disabled>Enviar</button>
+    <button type="reset">Limpiar</button>
+  </form>
+  <script src="VDLDC(Frontend).js"></script>
 </body>
 </html>
