@@ -1,0 +1,41 @@
+<!-- Renderiza dinámicamente una lista de productos utilizando un arreglo en JavaScript.
+Cada producto debe incluir:
+Nombre del producto.
+Precio.
+Descripción breve.
+No es necesario cargar imágenes ni estilos avanzados.
+Detalles Técnicos:
+Usa un elemento <ul> en el HTML para mostrar los productos.
+Al cargar la página, los productos deben generarse automáticamente.
+Implementa un botón para agregar un nuevo producto al final de la lista.-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Codificación estándar para caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
+    <title>Document</title> <!-- Título de la pestaña del navegador -->
+</head>
+<body>
+    <h1><strong>Bienvenido es un gusto <br>poderle presentar el siguiente producto</strong></h1> <!-- Título principal -->
+    <h2>Este producto es lo mejor que encontraras en mi provincia</h2> <!-- Subtítulo descriptivo -->
+    <h2>Lista de Productos</h2> <!-- Título para la lista -->
+    <ul id="lista-productos">  
+    </ul> <!-- Aquí se renderizarán los productos dinámicamente con JS -->
+
+    <!-- Inputs para agregar un nuevo producto -->
+    <label for="nombreProducto">Nombre:</label>
+    <input type="text" id="nombreProducto" placeholder="Nombre"> <!-- Campo para el nombre del producto -->
+    <label for="precioProducto">Precio:</label>
+    <input type="number" id="precioProducto" placeholder="Precio"> <!-- Campo para el precio -->
+    <label for="descProducto">Descripción:</label>
+    <input type="text" id="descProducto" placeholder="Descripción"> <!-- Campo para la descripción -->
+
+    <!-- Botones de interacción -->
+    <button id="btnAgregar">Agregar</button> <!-- Agrega un producto a la lista -->
+    <button id="delBtn">Eliminar Producto Seleccionado</button> <!-- Elimina el producto seleccionado -->
+    <button type="Select" id="btnSelect">Seleccionar Producto</button> <!-- Selecciona un producto de la lista -->
+    <button id="btnLimpiar">Limpiar Lista</button> <!-- Limpia toda la lista de productos -->
+
+    <script src="script.js"></script> <!-- Enlaza el archivo JS que contiene la lógica -->
+</body>
+</html>
