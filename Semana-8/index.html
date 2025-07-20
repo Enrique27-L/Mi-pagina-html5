@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Tienda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    h1 {
+      font-family: 'Segoe UI', sans-serif;
+      color: #2c3e50;
+    }
+    footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+    }
+    #contenidoPrincipal {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Pantalla de bienvenida con spinner -->
+  <div id="pantallaBienvenida" class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <div class="spinner-border text-primary mb-2"></div>
+    <div class="spinner-border text-success mb-3"></div>
+    <h1 class="text-primary">¡Hola, Bienvenido!</h1>
+    <button class="btn btn-success" onclick="mostrarContenido()">Presiona aquí</button>
+  </div>
+
+  <!-- Contenido Principal (oculto al inicio) -->
+  <div id="contenidoPrincipal">
+    <!-- Encabezado con menú de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Mi Tienda</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="#footer">Redes Sociales</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sección Principal -->
+    <div class="container mt-4">
+      <h1 class="text-center mb-4">Bienvenido a Nuestra Tienda</h1>
+
+      <!-- Carrusel de Imágenes -->
+      <div id="carouselExample" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="assets/P.Fresco.jpg" class="d-block w-100" alt="Producto Fresco">
+          </div>
+          <div class="carousel-item">
+            <img src="assets/P.yuca.jpg" class="d-block w-100" alt="Producto Yuca">
+          </div>
+          <div class="carousel-item">
+            <img src="assets/Y.Amarilla.jpg" class="d-block w-100" alt="Yuca Amarilla">
+          </div>
+          <div class="carousel-item">
+            <img src="assets/Zapote.jpg" class="d-block w-100" alt="Zapote">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
+      <!-- Tabla de Productos -->
+      <h2 id="productos">Nuestros Productos</h2>
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Disponibilidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Producto Fresco</td><td>$5</td><td>Disponible</td></tr>
+          <tr><td>Yuca</td><td>$5</td><td>Agotado</td></tr>
+          <tr><td>Yuca Amarilla</td><td>$6</td><td>Disponible</td></tr>
+          <tr><td>Zapote</td><td>$2</td><td>Disponible</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Botón de Alerta -->
+      <button class="btn btn-warning" onclick="mostrarAlerta()">Haz clic aquí</button>
+
+      <!-- Formulario de Contacto -->
+      <h2 id="contacto" class="mt-5">Contáctanos</h2>
+      <form onsubmit="return validarFormulario()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" required>
+          <div class="text-danger" id="errorNombre"></div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="email" required>
+          <div class="text-danger" id="errorEmail"></div>
+        </div>
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <textarea class="form-control" id="mensaje" rows="3" required></textarea>
+          <div class="text-danger" id="errorMensaje"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer id="footer" class="text-center mt-5">
+      <p>Contáctanos en: contacto@mitienda.com | Síguenos en redes sociales</p>
+      <a href="#" class="me-2">Facebook</a>
+      <a href="#" class="me-2">Instagram</a>
+      <a href="#">Twitter</a>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Mostrar el contenido principal y ocultar la pantalla de bienvenida
+    function mostrarContenido() {
+      document.getElementById("pantallaBienvenida").style.display = "none";
+      document.getElementById("contenidoPrincipal").style.display = "block";
+    }
+
+    // Alerta personalizada
+    function mostrarAlerta() {
+      alert("¡Gracias por visitar nuestra tienda!");
+    }
+
+    // Validación del formulario
+    function validarFormulario() {
+      let esValido = true;
+
+      document.getElementById("errorNombre").textContent = "";
+      document.getElementById("errorEmail").textContent = "";
+      document.getElementById("errorMensaje").textContent = "";
+
+      if (document.getElementById("nombre").value.trim() === "") {
+        document.getElementById("errorNombre").textContent = "El nombre es obligatorio.";
+        esValido = false;
+      }
+      if (document.getElementById("email").value.trim() === "") {
+        document.getElementById("errorEmail").textContent = "El correo es obligatorio.";
+        esValido = false;
+      }
+      if (document.getElementById("mensaje").value.trim() === "") {
+        document.getElementById("errorMensaje").textContent = "El mensaje es obligatorio.";
+        esValido = false;
+      }
+
+      return esValido;
+    }
+  </script>
+</body>
+</html>
